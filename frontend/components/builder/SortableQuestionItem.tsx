@@ -1,21 +1,25 @@
-"use client";
+"use client"
 
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
-import { Question } from "@/types/api";
-import { questionTypeMeta } from "../questions/questionTypeMeta";
-import { cn } from "@/lib/utils";
-import { GripVertical, MoreHorizontal } from "lucide-react";
-import { useBuilderStore } from "@/store/builderStore";
+import { useSortable } from "@dnd-kit/sortable"
+import { CSS } from "@dnd-kit/utilities"
+import { Question } from "@/types/api"
+import { questionTypeMeta } from "../questions/questionTypeMeta"
+import { cn } from "@/lib/utils"
+import { GripVertical, MoreHorizontal } from "lucide-react"
+import { useBuilderStore } from "@/store/builderStore"
 
 interface SortableQuestionItemProps {
-  question: Question;
-  index: number;
+  question: Question
+  index: number
 }
 
-export function SortableQuestionItem({ question, index }: SortableQuestionItemProps) {
-  const { selectedItem, setSelectedItem } = useBuilderStore();
-  const isSelected = selectedItem?.kind === "question" && selectedItem.id === question.id;
+export function SortableQuestionItem({
+  question,
+  index,
+}: SortableQuestionItemProps) {
+  const { selectedItem, setSelectedItem } = useBuilderStore()
+  const isSelected =
+    selectedItem?.kind === "question" && selectedItem.id === question.id
 
   const {
     attributes,
@@ -24,15 +28,15 @@ export function SortableQuestionItem({ question, index }: SortableQuestionItemPr
     transform,
     transition,
     isDragging,
-  } = useSortable({ id: question.id });
+  } = useSortable({ id: question.id })
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-  };
+  }
 
-  const meta = questionTypeMeta[question.type];
-  const Icon = meta.icon;
+  const meta = questionTypeMeta[question.type]
+  const Icon = meta.icon
 
   return (
     <div
@@ -40,33 +44,33 @@ export function SortableQuestionItem({ question, index }: SortableQuestionItemPr
       style={style}
       onClick={() => setSelectedItem({ kind: "question", id: question.id })}
       className={cn(
-        "group flex items-center justify-between p-2 my-1 rounded-md cursor-pointer transition-colors border border-transparent",
+        "group my-1 flex cursor-pointer items-center justify-between rounded-md border border-transparent p-2 transition-colors",
         isSelected ? "bg-action/10 border-action/20" : "hover:bg-muted",
-        isDragging && "opacity-50 border-dashed border-border"
+        isDragging && "border-dashed border-border opacity-50"
       )}
     >
       <div className="flex items-center gap-3 overflow-hidden">
-        <div 
-          className="text-muted-foreground/50 hover:text-foreground cursor-grab active:cursor-grabbing p-1 -ml-1 rounded"
+        <div
+          className="-ml-1 cursor-grab rounded p-1 text-muted-foreground/50 hover:text-foreground active:cursor-grabbing"
           {...attributes}
           {...listeners}
           onClick={(e) => e.stopPropagation()}
         >
           <GripVertical className="h-4 w-4" />
         </div>
-        
-        <div className="flex items-center justify-center w-5 h-5 rounded-sm bg-muted text-muted-foreground text-[10px] font-bold shrink-0">
+
+        <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-sm bg-muted text-[10px] font-bold text-muted-foreground">
           {index + 1}
         </div>
-        
-        <div className={cn("p-1.5 rounded bg-muted shrink-0", meta.colorClass)}>
+
+        <div className={cn("shrink-0 rounded bg-muted p-1.5", meta.colorClass)}>
           <Icon className="h-3.5 w-3.5" />
         </div>
-        
-        <div className="text-sm font-medium truncate">
+
+        <div className="truncate text-sm font-medium">
           {question.title || "Untitled question"}
         </div>
       </div>
     </div>
-  );
+  )
 }

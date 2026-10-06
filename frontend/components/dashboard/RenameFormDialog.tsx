@@ -1,37 +1,42 @@
-"use client";
+"use client"
 
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogFooter,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+} from "@/components/ui/dialog"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 
 interface RenameFormDialogProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  currentTitle: string;
-  onRename: (title: string) => void;
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  currentTitle: string
+  onRename: (title: string) => void
 }
 
-export function RenameFormDialog({ open, onOpenChange, currentTitle, onRename }: RenameFormDialogProps) {
-  const [title, setTitle] = useState(currentTitle);
+export function RenameFormDialog({
+  open,
+  onOpenChange,
+  currentTitle,
+  onRename,
+}: RenameFormDialogProps) {
+  const [title, setTitle] = useState(currentTitle)
 
   useEffect(() => {
-    if (open) setTitle(currentTitle);
-  }, [open, currentTitle]);
+    if (open) setTitle(currentTitle)
+  }, [open, currentTitle])
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     if (title.trim()) {
-      onRename(title.trim());
-      onOpenChange(false);
+      onRename(title.trim())
+      onOpenChange(false)
     }
-  };
+  }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -49,15 +54,22 @@ export function RenameFormDialog({ open, onOpenChange, currentTitle, onRename }:
             />
           </div>
           <DialogFooter>
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => onOpenChange(false)}
+            >
               Cancel
             </Button>
-            <Button type="submit" disabled={!title.trim() || title === currentTitle}>
+            <Button
+              type="submit"
+              disabled={!title.trim() || title === currentTitle}
+            >
               Rename
             </Button>
           </DialogFooter>
         </form>
       </DialogContent>
     </Dialog>
-  );
+  )
 }

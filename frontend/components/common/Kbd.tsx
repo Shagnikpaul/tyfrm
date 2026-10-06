@@ -1,7 +1,7 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils"
 
 interface KbdProps extends React.HTMLAttributes<HTMLElement> {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 export function Kbd({ children, className, ...props }: KbdProps) {
@@ -15,5 +15,5 @@ export function Kbd({ children, className, ...props }: KbdProps) {
     >
       {children}
     </kbd>
-  );
+  )
 }
