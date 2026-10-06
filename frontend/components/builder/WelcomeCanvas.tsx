@@ -67,7 +67,7 @@ export function WelcomeCanvas({ form }: WelcomeCanvasProps) {
       />
 
       <textarea
-        className="border-action mb-10 h-32 w-full resize-none border-0 bg-transparent py-1 text-lg text-muted-foreground placeholder:text-muted-foreground/30 focus:border-b focus:ring-0 focus:outline-none md:text-xl"
+        className="mb-10 h-32 w-full resize-none  bg-transparent py-1 text-lg text-muted-foreground placeholder:text-muted-foreground/30 focus:border-b focus:ring-0 focus:outline-none md:text-xl"
         placeholder="Description (optional)"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
@@ -76,13 +76,13 @@ export function WelcomeCanvas({ form }: WelcomeCanvasProps) {
 
       <div className="mt-2 flex items-center gap-4">
         <div className="relative">
-          <Button className="bg-action text-action-foreground pointer-events-none h-12 rounded-md px-8 text-base font-semibold">
+          <Button className="bg-foreground text-background pointer-events-none h-12 rounded-md px-8 text-base font-semibold">
             {/* We overlay an input on the button text so it can be edited */}
             <span className="opacity-0">{buttonText || "Start"}</span>
           </Button>
           <input
             type="text"
-            className="text-action-foreground placeholder:text-action-foreground/50 absolute inset-0 bg-transparent text-center font-semibold focus:outline-none"
+            className="text-background placeholder:text-background/50 absolute inset-0 bg-transparent text-center font-semibold focus:outline-none"
             placeholder="Button text"
             value={buttonText}
             onChange={(e) => setButtonText(e.target.value)}

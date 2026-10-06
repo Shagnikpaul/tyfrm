@@ -29,6 +29,7 @@ export function FormPlayer({ form, mode = "play", onSubmit }: FormPlayerProps) {
   const [questionIndex, setQuestionIndex] = useState(0)
   const [direction, setDirection] = useState<1 | -1>(1)
   const [answers, setAnswers] = useState<Record<string, any>>({})
+  const answersRef = useRef<Record<string, any>>({})
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -55,7 +56,7 @@ export function FormPlayer({ form, mode = "play", onSubmit }: FormPlayerProps) {
     }
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [screenType, questionIndex, answers])
+  }, [screenType, questionIndex])
 
   const handleStart = () => {
     setDirection(1)
@@ -66,7 +67,7 @@ export function FormPlayer({ form, mode = "play", onSubmit }: FormPlayerProps) {
     if (screenType !== "question") return
 
     const question = questions[questionIndex] as Question
-    const value = answers[question.id]
+    const value = answersRef.current[question.id]
     const error = validateAnswer(question, value)
 
     if (error) {
@@ -104,7 +105,7 @@ export function FormPlayer({ form, mode = "play", onSubmit }: FormPlayerProps) {
     if (mode === "preview") {
       // Validate current first
       const question = questions[questionIndex] as Question
-      const error = validateAnswer(question, answers[question.id])
+      const error = validateAnswer(question, answersRef.current[question.id])
       if (error) {
         setErrors((prev) => ({ ...prev, [question.id]: error }))
         return
@@ -120,7 +121,7 @@ export function FormPlayer({ form, mode = "play", onSubmit }: FormPlayerProps) {
     setIsSubmitting(true)
     try {
       // Filter out unanswered optional questions
-      const finalAnswers = Object.entries(answers)
+      const finalAnswers = Object.entries(answersRef.current)
         .filter(([_, val]) => {
           if (val === undefined || val === null || val === "") return false
           if (Array.isArray(val) && val.length === 0) return false
@@ -236,10 +237,11 @@ export function FormPlayer({ form, mode = "play", onSubmit }: FormPlayerProps) {
                 index={questionIndex}
                 value={answers[questions[questionIndex].id]}
                 onChange={(val) => {
-                  setAnswers((prev) => ({
-                    ...prev,
-                    [questions[questionIndex].id]: val,
-                  }))
+                  setAnswers((prev) => {
+                    const next = { ...prev, [questions[questionIndex].id]: val }
+                    answersRef.current = next
+                    return next
+                  })
                   setErrors((prev) => {
                     const newErrs = { ...prev }
                     delete newErrs[questions[questionIndex].id]

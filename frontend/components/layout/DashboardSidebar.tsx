@@ -29,12 +29,12 @@ export function DashboardSidebar({ onStatusChange }: DashboardSidebarProps) {
       <div className="flex items-center justify-between border-b border-border p-4 md:p-6">
         <Link
           href="/forms"
-          className="flex items-center gap-2 text-lg font-semibold"
+          className="flex items-center gap-1 text-lg font-semibold"
         >
-          <div className="flex h-6 w-6 items-center justify-center rounded-md bg-foreground">
-            <span className="text-xs font-bold text-background">T</span>
+          <div className="flex items-center justify-center rounded-md bg-foreground">
+            <span className="text-sm font-bold text-background p-2">Ty</span>
           </div>
-          Workspace
+          Frm.
         </Link>
       </div>
 

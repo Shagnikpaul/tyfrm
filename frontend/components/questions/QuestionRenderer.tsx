@@ -33,7 +33,7 @@ export function QuestionRenderer({
   index,
 }: QuestionRendererProps) {
   const isEdit = mode === "edit"
-  const disabled = mode === "preview" || mode === "edit"
+  const disabled = mode === "edit"
 
   // Note: For 'edit' mode, the PRD says the title/description are editable inline.
   // To keep things simple and unified for now, we'll just render them as text if not in edit mode,

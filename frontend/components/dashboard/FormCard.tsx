@@ -11,7 +11,11 @@ import {
   Copy,
   Trash2,
   Edit,
+  BadgeCheck,
+  MessageSquare,
+  Calendar,
 } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -59,14 +63,26 @@ export function FormCard({
               {form.title}
             </h3>
           </Link>
-          <div className="mt-1 flex items-center gap-3 text-xs text-muted-foreground">
-            <span className="flex items-center gap-1.5">
-              <span
-                className={`h-2 w-2 rounded-full ${form.status === "published" ? "bg-success" : "bg-muted-foreground"}`}
-              ></span>
-              {form.status === "published" ? "Published" : "Draft"}
-            </span>
-            <span>{form.response_count} responses</span>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {form.status === "published" ? (
+              <Badge variant="secondary">
+                <BadgeCheck data-icon="inline-start" />
+                Published
+              </Badge>
+            ) : (
+              <Badge variant="outline">
+                <Edit2 data-icon="inline-start" />
+                Draft
+              </Badge>
+            )}
+            <Badge variant="secondary">
+              <MessageSquare data-icon="inline-start" />
+              {form.response_count} responses
+            </Badge>
+            <Badge variant="outline">
+              <Calendar data-icon="inline-start" />
+              {new Date(form.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+            </Badge>
           </div>
 
           <div className="absolute top-3 right-2 opacity-0 transition-opacity group-hover:opacity-100">

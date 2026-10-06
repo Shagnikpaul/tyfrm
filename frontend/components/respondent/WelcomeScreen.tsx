@@ -50,7 +50,7 @@ export function WelcomeScreen({
         <Button
           onClick={onStart}
           disabled={disabled}
-          className="bg-action text-action-foreground hover:bg-action/90 h-12 rounded-md px-8 text-base font-semibold"
+          className="bg-foreground text-background hover:bg-foreground/90 h-12 rounded-md px-8 text-base font-semibold"
         >
           {buttonText || "Start"}
         </Button>
