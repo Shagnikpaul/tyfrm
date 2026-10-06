@@ -17,7 +17,7 @@ This project is a functional clone of Typeform, designed for creators to build f
 - **Language & Framework:** Python 3.12, FastAPI, Uvicorn
 - **Validation:** Pydantic v2
 - **Database & ORM:** SQLite (default), SQLAlchemy 2.0 (typed `Mapped[]` style), Alembic (migrations)
-- **File Storage (P1):** AWS S3 via `boto3`
+- **File Storage (P1):** AWS S3 via `boto3` (planned not implemented yet...)
 
 ## Setup Instructions
 
