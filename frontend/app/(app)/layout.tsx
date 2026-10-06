@@ -1,20 +1,20 @@
 "use client"
 
-import { ReactNode } from "react"
+import { ReactNode, Suspense } from "react"
 import { ThemeToggle } from "@/components/layout/ThemeToggle"
 import { User } from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu } from "lucide-react"
 import { DashboardSidebar } from "@/components/layout/DashboardSidebar"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 
 export default function AppLayout({ children }: { children: ReactNode }) {
   const router = useRouter()
-  const searchParams = useSearchParams()
 
   const handleStatusChange = (status: string | undefined) => {
-    const params = new URLSearchParams(searchParams.toString())
+    const search = typeof window !== "undefined" ? window.location.search : ""
+    const params = new URLSearchParams(search)
     if (status) {
       params.set("status", status)
     } else {
@@ -28,7 +28,9 @@ export default function AppLayout({ children }: { children: ReactNode }) {
     <div className="flex h-screen overflow-hidden bg-background">
       {/* Desktop Sidebar */}
       <div className="hidden md:block">
-        <DashboardSidebar onStatusChange={handleStatusChange} />
+        <Suspense fallback={<div className="bg-surface h-full w-64 border-r border-border" />}>
+          <DashboardSidebar onStatusChange={handleStatusChange} />
+        </Suspense>
       </div>
 
       <div className="flex h-full min-w-0 flex-1 flex-col overflow-hidden">
@@ -42,7 +44,9 @@ export default function AppLayout({ children }: { children: ReactNode }) {
                 <Menu className="h-5 w-5" />
               </SheetTrigger>
               <SheetContent side="left" className="w-64 p-0">
-                <DashboardSidebar onStatusChange={handleStatusChange} />
+                <Suspense fallback={<div className="h-full w-64" />}>
+                  <DashboardSidebar onStatusChange={handleStatusChange} />
+                </Suspense>
               </SheetContent>
             </Sheet>
             <div className="flex items-center gap-2 font-semibold">
