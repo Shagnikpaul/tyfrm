@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useForms } from "@/lib/api/hooks/useForms"
 import {
@@ -33,7 +33,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
 
-export default function FormsPage() {
+function FormsPageContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -216,3 +216,12 @@ export default function FormsPage() {
     </div>
   )
 }
+
+export default function FormsPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-center text-muted-foreground">Loading forms...</div>}>
+      <FormsPageContent />
+    </Suspense>
+  )
+}
+
