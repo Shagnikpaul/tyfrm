@@ -1,12 +1,5 @@
-import { Button } from "@/components/ui/button"
+import { redirect } from "next/navigation";
 
-export default function Page() {
-  return (
-    <div className="flex">
-      <h1>
-        Hi!!!
-      </h1>
-      <Button>Press me.</Button>
-    </div>
-  )
+export default function Home() {
+  redirect("/forms");
 }
