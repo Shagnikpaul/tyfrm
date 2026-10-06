@@ -79,20 +79,28 @@ export interface Paginated<T> {
   page_size: number;
 }
 
-export interface QuestionStats {
-  answered: number;
-  skipped: number;
-  distribution?: Record<string, number>;
-  average?: number;
-  min?: number;
-  max?: number;
-  recent?: any[];
-  options?: { label: string; count: number; percentage: number; is_orphan?: boolean }[];
+export interface SummaryQuestionStats {
+  question_id: string;
+  type: string;
+  title: string;
+  answered_count: number;
+  skipped_count: number;
+  stats: {
+    recent?: any[];
+    average?: number;
+    distribution?: { value: number; count: number }[];
+    yes?: number;
+    no?: number;
+    min?: number;
+    max?: number;
+    options?: { label: string; count: number; is_orphan: boolean }[];
+  };
 }
 
 export interface Summary {
-  response_count: number;
-  view_count: number;
+  form_id: string;
+  total_responses: number;
+  views: number;
   completion_rate: number | null;
-  question_stats: Record<string, QuestionStats>;
+  questions: SummaryQuestionStats[];
 }
