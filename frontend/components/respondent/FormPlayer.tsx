@@ -182,6 +182,16 @@ export function FormPlayer({ form, mode = "play", onSubmit }: FormPlayerProps) {
     <div
       className={`relative flex h-[100dvh] w-full flex-col overflow-hidden ${form.theme?.mode === "dark" ? "dark bg-background" : "bg-background"}`}
     >
+      {/* Full-width Progress Bar at the Top */}
+      {screenType === "question" && (
+        <div className="absolute top-0 left-0 right-0 z-[60] h-1.5 w-full bg-muted/30">
+          <div
+            className="bg-action h-full transition-all duration-500 ease-out"
+            style={{ width: `${pct}%` }}
+          />
+        </div>
+      )}
+
       {mode === "preview" && (
         <div className="absolute top-0 right-0 left-0 z-50 flex h-10 items-center justify-between border-b border-border bg-muted/80 px-4 backdrop-blur">
           <span className="text-sm font-medium text-muted-foreground">
@@ -274,24 +284,9 @@ export function FormPlayer({ form, mode = "play", onSubmit }: FormPlayerProps) {
         </AnimatePresence>
       </div>
 
-      {/* Progress and Nav */}
+      {/* Nav */}
       {screenType !== "ending" && (
-        <div className="pointer-events-none absolute right-0 bottom-0 left-0 flex items-end justify-between p-4 md:p-6">
-          <div className="w-48 max-w-[30%]">
-            {screenType === "question" && (
-              <div className="flex flex-col gap-2 opacity-100 transition-opacity">
-                <div className="text-xs font-semibold text-muted-foreground">
-                  {pct}% completed
-                </div>
-                <div className="h-1 w-full overflow-hidden rounded-full bg-muted">
-                  <div
-                    className="bg-action h-full transition-all duration-500 ease-out"
-                    style={{ width: `${pct}%` }}
-                  />
-                </div>
-              </div>
-            )}
-          </div>
+        <div className="pointer-events-none absolute right-0 bottom-0 left-0 flex items-end justify-end p-4 md:p-6">
 
           <div className="bg-action pointer-events-auto flex overflow-hidden rounded-md shadow-sm">
             <Button
