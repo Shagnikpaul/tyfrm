@@ -45,6 +45,25 @@ export default function ResponsesPage() {
     return String(val)
   }
 
+  const formatDate = (dateString?: string) => {
+    if (!dateString) return "N/A"
+    try {
+      let safeDateString = dateString
+      // Trim microsecond precision to millisecond to support all JS engines (e.g. Safari)
+      if (/\.\d{4,}/.test(safeDateString)) {
+        safeDateString = safeDateString.replace(/(\.\d{3})\d+/, "$1")
+      }
+      // Add Z if timezone is not specified
+      if (!safeDateString.endsWith("Z") && !safeDateString.includes("+")) {
+        safeDateString += "Z"
+      }
+      const d = new Date(safeDateString)
+      return isNaN(d.getTime()) ? dateString : d.toLocaleString()
+    } catch (e) {
+      return dateString
+    }
+  }
+
   const totalPages = Math.ceil(responses.total / pageSize)
 
   return (
@@ -121,7 +140,7 @@ export default function ResponsesPage() {
                     className="transition-colors hover:bg-muted/50"
                   >
                     <td className="px-4 py-4 text-sm whitespace-nowrap text-foreground">
-                      {new Date(response.created_at).toLocaleString()}
+                      {formatDate(response.submitted_at || response.created_at)}
                     </td>
                     {form.questions.map((q) => {
                       const answer = response.answers.find(

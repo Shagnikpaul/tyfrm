@@ -69,10 +69,9 @@ export function QuestionRenderer({
 
   return (
     <div className="flex w-full flex-col">
-      <div className="mb-2 flex items-start gap-3">
-        <div className="text-action mt-1.5 flex shrink-0 items-center text-sm font-semibold md:text-base">
+      <div className="mb-4 flex items-start gap-4">
+        <div className="bg-action/15 text-action mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-xl text-sm font-bold shadow-sm md:h-10 md:w-10 md:text-base md:rounded-2xl">
           {index + 1}
-          <ArrowRight className="ml-1 h-4 w-4" />
         </div>
         <div className="flex flex-col gap-2">
           <h2 className="text-2xl leading-tight font-medium tracking-tight md:text-3xl">

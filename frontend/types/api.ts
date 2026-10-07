@@ -90,7 +90,8 @@ export interface ResponseItem {
   id: string
   form_id: string
   answers: { question_id: string; value: any }[]
-  created_at: string
+  created_at?: string
+  submitted_at?: string
 }
 
 export interface Paginated<T> {

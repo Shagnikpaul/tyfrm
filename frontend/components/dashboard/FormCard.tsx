@@ -2,7 +2,6 @@
 
 import Link from "next/link"
 import { FormSummaryItem } from "@/types/api"
-import { FormThumbnail } from "./FormThumbnail"
 import {
   MoreHorizontal,
   Edit2,
@@ -52,14 +51,10 @@ export function FormCard({
 
   return (
     <>
-      <div className="group relative flex flex-col overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-muted-foreground/30 hover:shadow-md">
-        <Link href={`/forms/${form.id}/edit`} className="block w-full">
-          <FormThumbnail slug={form.slug} title={form.title} />
-        </Link>
-
-        <div className="relative flex flex-col gap-1 bg-card p-4">
+      <div className="group relative flex flex-col overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-muted-foreground/30 hover:shadow-md min-h-[170px] justify-center">
+        <div className="relative flex flex-col gap-2 bg-card p-5">
           <Link href={`/forms/${form.id}/edit`} className="block w-full">
-            <h3 className="line-clamp-1 pr-8 font-medium text-foreground">
+            <h3 className="line-clamp-1 pr-8 text-lg font-semibold text-foreground hover:underline">
               {form.title}
             </h3>
           </Link>
