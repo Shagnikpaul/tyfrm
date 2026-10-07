@@ -6,6 +6,14 @@ import { useParams } from "next/navigation"
 import { Loader2, ChevronLeft, ChevronRight } from "lucide-react"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 
 export default function ResponsesPage() {
   const params = useParams()
@@ -112,53 +120,49 @@ export default function ResponsesPage() {
             <p>No responses yet.</p>
           </div>
         ) : (
-          <div className="inline-block min-w-full align-middle">
-            <table className="min-w-full border-collapse divide-y divide-border">
-              <thead>
-                <tr>
-                  <th
-                    scope="col"
-                    className="sticky top-0 z-10 min-w-[200px] border-b border-border bg-background px-4 py-3 text-left text-xs font-semibold tracking-wider text-muted-foreground uppercase shadow-sm"
-                  >
+          <div className="overflow-hidden rounded-md border border-border bg-card">
+            <Table>
+              <TableHeader className="bg-surface/50">
+                <TableRow>
+                  <TableHead className="min-w-[200px] h-11 text-xs font-semibold tracking-wider text-muted-foreground uppercase">
                     Submitted At
-                  </th>
+                  </TableHead>
                   {form.questions.map((q) => (
-                    <th
+                    <TableHead
                       key={q.id}
-                      scope="col"
-                      className="sticky top-0 z-10 max-w-[400px] min-w-[250px] truncate border-b border-border bg-background px-4 py-3 text-left text-xs font-semibold tracking-wider text-muted-foreground uppercase shadow-sm"
+                      className="max-w-[400px] min-w-[250px] truncate h-11 text-xs font-semibold tracking-wider text-muted-foreground uppercase"
                     >
                       {q.title}
-                    </th>
+                    </TableHead>
                   ))}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border bg-background">
+                </TableRow>
+              </TableHeader>
+              <TableBody>
                 {responses.items.map((response) => (
-                  <tr
+                  <TableRow
                     key={response.id}
-                    className="transition-colors hover:bg-muted/50"
+                    className="hover:bg-surface/50"
                   >
-                    <td className="px-4 py-4 text-sm whitespace-nowrap text-foreground">
+                    <TableCell className="py-3 text-sm whitespace-nowrap text-foreground">
                       {formatDate(response.submitted_at || response.created_at)}
-                    </td>
+                    </TableCell>
                     {form.questions.map((q) => {
                       const answer = response.answers.find(
                         (a) => a.question_id === q.id
                       )
                       return (
-                        <td
+                        <TableCell
                           key={q.id}
-                          className="max-w-[400px] truncate px-4 py-4 text-sm text-foreground"
+                          className="max-w-[400px] truncate py-3 text-sm text-foreground"
                         >
                           {formatValue(answer?.value)}
-                        </td>
+                        </TableCell>
                       )
                     })}
-                  </tr>
+                  </TableRow>
                 ))}
-              </tbody>
-            </table>
+              </TableBody>
+            </Table>
           </div>
         )}
       </div>
